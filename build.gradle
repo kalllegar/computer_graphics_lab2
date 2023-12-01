@@ -1,0 +1,51 @@
+plugins {
+    id("java")
+    id("application")
+    id("io.freefair.lombok") version "8.3"
+    id("org.openjfx.javafxplugin") version "0.1.0"
+}
+
+group = "org.example"
+version = "1.0"
+
+javafx {
+    modules = ["javafx.controls"]
+    version = "17.0.8"
+}
+
+java {
+
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(19)
+    }
+}
+
+
+repositories {
+    mavenCentral()
+}
+
+
+jar {
+    setArchiveBaseName('lab2')
+    manifest {
+        attributes 'Main-Class': 'org.example.Main'
+    }
+}
+
+application {
+    applicationDefaultJvmArgs =  ["--add-opens", "java.base/java.lang=ALL-UNNAMED"]
+    mainClass = 'org.example.Main'
+}
+
+
+dependencies {
+    implementation 'org.openpnp:opencv:4.7.0-0'
+    // https://mvnrepository.com/artifact/org.apache.commons/commons-compress
+    implementation 'org.apache.commons:commons-compress:1.25.0'
+
+}
+
+tasks.test {
+    useJUnitPlatform()
+}
