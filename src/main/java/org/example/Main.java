@@ -2,7 +2,6 @@ package org.example;
 
 
 import javafx.application.Application;
-import javafx.event.Event;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -12,7 +11,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 import nu.pattern.OpenCV;
 import org.opencv.core.CvType;
@@ -101,7 +99,7 @@ public class Main extends Application {
                     );
                     textField.setText(valueToSet.toString());
 
-                    this.mat = ImageProcessing.multiplyByScalar(
+                    this.mat = ImageProcessing.minimumBlur(
                             this.mat,
                             valueToSet
                     );
@@ -122,7 +120,7 @@ public class Main extends Application {
                     );
                     textField.setText(valueToSet.toString());
 
-                    this.mat = ImageProcessing.toPowerOf(
+                    this.mat = ImageProcessing.maximumBlur(
                             this.mat,
                             valueToSet
                     );
@@ -158,13 +156,6 @@ public class Main extends Application {
             imageView.setImage(ImageUtil.getJavaFXImage(mat, ext));
         });
 
-        Separator thickSep1 = new Separator();
-        thickSep1.setMinHeight(4);
-        Separator thickSep2 = new Separator();
-        thickSep1.setMinHeight(4);
-
-        Separator thinSep2 = new Separator();
-        thinSep2.setMinHeight(2);
 
         pane.getStylesheets().add("styles.css");
         pane.getChildren().addAll(
@@ -172,11 +163,8 @@ public class Main extends Application {
                 medianBlurButton,
                 minimumBLurButton,
                 maximumBlurButton,
-                thinSep2,
-                thickSep1,
                 otsuThresholdButton,
                 histogramThresholdButton,
-                thickSep2,
                 restoreButton
         );
 

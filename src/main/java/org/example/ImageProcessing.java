@@ -4,7 +4,6 @@ import lombok.experimental.UtilityClass;
 import org.opencv.core.*;
 import org.opencv.imgproc.Imgproc;
 
-import java.awt.image.Kernel;
 import java.util.ArrayList;
 
 @UtilityClass
@@ -16,7 +15,7 @@ public class ImageProcessing {
         return result;
     }
 
-    public Mat multiplyByScalar(Mat image, int value) {
+    public Mat minimumBlur(Mat image, int value) {
         Mat result = new Mat();
         Mat kernel = new Mat(new Size(value, value), Imgproc.MORPH_RECT);
         Imgproc.erode(image, result, kernel);
@@ -25,13 +24,14 @@ public class ImageProcessing {
     }
 
 
-    public Mat toPowerOf(Mat image, int value) {
+    public Mat maximumBlur(Mat image, int value) {
         Mat result = new Mat();
         Mat kernel = new Mat(new Size(value, value), Imgproc.MORPH_RECT);
         Imgproc.dilate(image, result, kernel);
 
         return result;
-    }    public Mat processWithGlobalThresholdOtsu(Mat image) {
+    }
+    public Mat processWithGlobalThresholdOtsu(Mat image) {
         Mat result = new Mat(image.size(), CvType.CV_8UC1);
         double max = Core.minMaxLoc(image).maxVal;
 
